@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>RCTGeolocation.xcscheme</key>
+		<key>RCTNetwork-tvOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>47</integer>
+			<integer>55</integer>
+		</dict>
+		<key>RCTNetwork.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>54</integer>
 		</dict>
 	</dict>
 </dict>
