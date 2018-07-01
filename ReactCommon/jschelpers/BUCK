@@ -13,11 +13,11 @@ rn_xplat_cxx_library(
     name = "jscinternalhelpers",
     srcs = glob(
         ["*.cpp"],
-        exclude = ["systemJSCWrapper.cpp"],
+        excludes = ["systemJSCWrapper.cpp"],
     ),
     headers = glob(
         ["*.h"],
-        exclude = EXPORTED_HEADERS,
+        excludes = EXPORTED_HEADERS,
     ),
     header_namespace = "",
     exported_headers = dict([

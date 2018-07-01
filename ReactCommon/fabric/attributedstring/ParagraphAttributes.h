@@ -36,18 +36,18 @@ public:
    * Maximum number of lines which paragraph can take.
    * Zero value represents "no limit".
    */
-  int maximumNumberOfLines {};
+  int maximumNumberOfLines {0};
 
   /*
    * In case if a text cannot fit given boundaries, defines a place where
    * an ellipsize should be placed.
    */
-  EllipsizeMode ellipsizeMode {};
+  EllipsizeMode ellipsizeMode {EllipsizeMode::Clip};
 
   /*
    * Enables font size adjustment to fit constrained boundaries.
    */
-  bool adjustsFontSizeToFit {};
+  bool adjustsFontSizeToFit {false};
 
   /*
    * In case of font size adjustment enabled, defines minimum and maximum

@@ -32,23 +32,19 @@ const RCTView = requireNativeComponent('RCTView');
 
 let ViewToExport = RCTView;
 if (__DEV__) {
-  const View = (props: Props, forwardedRef: ?React.Ref<'RCTView'>) => {
-    return (
-      <TextAncestor.Consumer>
-        {hasTextAncestor => {
-          invariant(
-            !hasTextAncestor,
-            'Nesting of <View> within <Text> is not currently supported.',
-          );
-          return <RCTView {...props} ref={forwardedRef} />;
-        }}
-      </TextAncestor.Consumer>
-    );
-  };
   // $FlowFixMe - TODO T29156721 `React.forwardRef` is not defined in Flow, yet.
-  ViewToExport = React.forwardRef(View);
+  ViewToExport = React.forwardRef((props, ref) => (
+    <TextAncestor.Consumer>
+      {hasTextAncestor => {
+        invariant(
+          !hasTextAncestor,
+          'Nesting of <View> within <Text> is not currently supported.',
+        );
+        return <RCTView {...props} ref={ref} />;
+      }}
+    </TextAncestor.Consumer>
+  ));
+  ViewToExport.displayName = 'View';
 }
 
-module.exports = ((ViewToExport: $FlowFixMe): Class<
-  NativeComponent<ViewProps>,
->);
+module.exports = ((ViewToExport: any): Class<NativeComponent<ViewProps>>);

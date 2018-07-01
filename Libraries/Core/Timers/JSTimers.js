@@ -14,7 +14,6 @@ const Systrace = require('Systrace');
 
 const invariant = require('fbjs/lib/invariant');
 const {Timing} = require('NativeModules');
-const BatchedBridge = require('BatchedBridge');
 
 import type {ExtendedError} from 'parseErrorStack';
 
@@ -494,9 +493,5 @@ if (!Timing) {
 } else {
   ExportedJSTimers = JSTimers;
 }
-
-BatchedBridge.setImmediatesCallback(
-  ExportedJSTimers.callImmediates.bind(ExportedJSTimers),
-);
 
 module.exports = ExportedJSTimers;

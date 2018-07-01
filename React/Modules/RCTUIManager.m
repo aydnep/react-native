@@ -1473,7 +1473,7 @@ RCT_EXPORT_METHOD(setJSResponder:(nonnull NSNumber *)reactTag
   [self addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     _jsResponder = viewRegistry[reactTag];
     if (!_jsResponder) {
-      RCTLogWarn(@"Invalid view set to be the JS responder - tag %@", reactTag);
+      RCTLogError(@"Invalid view set to be the JS responder - tag %@", reactTag);
     }
   }];
 }

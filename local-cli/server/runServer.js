@@ -56,11 +56,10 @@ export type Args = {|
   +nonPersistent: boolean,
   +platforms: $ReadOnlyArray<string>,
   +port: number,
-  +projectRoot: string,
+  +projectRoots: $ReadOnlyArray<string>,
   +resetCache: boolean,
   +sourceExts: $ReadOnlyArray<string>,
   +verbose: boolean,
-  +watchFolders: $ReadOnlyArray<string>,
 |};
 
 function runServer(
@@ -101,7 +100,7 @@ function runServer(
     .use(indexPageMiddleware)
     .use(packagerServer.processRequest.bind(packagerServer));
 
-  args.watchFolders.forEach(root => app.use(serveStatic(root)));
+  args.projectRoots.forEach(root => app.use(serveStatic(root)));
 
   app.use(morgan('combined')).use(errorhandler());
 
@@ -188,7 +187,6 @@ function getPackagerServer(args, config, reporter) {
     dynamicDepsInPackages: config.dynamicDepsInPackages,
     getModulesRunBeforeMainModule: config.getModulesRunBeforeMainModule,
     getPolyfills: config.getPolyfills,
-    getResolverMainFields: config.getResolverMainFields,
     getRunModuleStatement: config.getRunModuleStatement,
     getTransformOptions: config.getTransformOptions,
     hasteImplModulePath: config.hasteImplModulePath,
@@ -197,7 +195,7 @@ function getPackagerServer(args, config, reporter) {
     polyfillModuleNames: config.getPolyfillModuleNames(),
     postMinifyProcess: config.postMinifyProcess,
     postProcessBundleSourcemap: config.postProcessBundleSourcemap,
-    projectRoot: args.projectRoot,
+    projectRoots: args.projectRoots,
     providesModuleNodeModules: providesModuleNodeModules,
     reporter,
     resetCache: args.resetCache,
@@ -206,7 +204,6 @@ function getPackagerServer(args, config, reporter) {
     transformModulePath: transformModulePath,
     verbose: args.verbose,
     watch: !args.nonPersistent,
-    watchFolders: args.watchFolders,
     workerPath: config.getWorkerPath(),
   });
 }

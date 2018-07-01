@@ -8,7 +8,6 @@
 #pragma once
 
 #include <string>
-#include <memory>
 #include <vector>
 
 namespace facebook {
@@ -17,7 +16,7 @@ namespace react {
 class DebugStringConvertible;
 
 using SharedDebugStringConvertible = std::shared_ptr<const DebugStringConvertible>;
-using SharedDebugStringConvertibleList = std::vector<SharedDebugStringConvertible>;
+using SharedDebugStringConvertibleList = std::vector<const SharedDebugStringConvertible>;
 
 struct DebugStringConvertibleOptions {
   bool format {true};

@@ -250,6 +250,7 @@ SliderWithRef.defaultProps = {
   maximumValue: 1,
   step: 0,
 };
+SliderWithRef.displayName = 'Slider';
 
 let styles;
 if (Platform.OS === 'ios') {

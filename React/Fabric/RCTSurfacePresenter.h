@@ -9,7 +9,6 @@
 #import <memory>
 
 #import <React/RCTBridge.h>
-#import <React/RCTPrimitives.h>
 #import <fabric/uimanager/FabricUIManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)registerSurface:(RCTFabricSurface *)surface;
 - (void)unregisterSurface:(RCTFabricSurface *)surface;
-- (nullable RCTFabricSurface *)surfaceForRootTag:(ReactTag)rootTag;
 
 /**
  * Measures the Surface with given constraints.
@@ -52,7 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setMinimumSize:(CGSize)minimumSize
            maximumSize:(CGSize)maximumSize
                surface:(RCTFabricSurface *)surface;
-
 @end
 
 @interface RCTSurfacePresenter (Deprecated)

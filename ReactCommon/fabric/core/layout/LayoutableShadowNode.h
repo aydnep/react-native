@@ -10,7 +10,6 @@
 #include <array>
 #include <cmath>
 #include <vector>
-#include <memory>
 
 #include <fabric/core/LayoutMetrics.h>
 #include <fabric/core/Sealable.h>
@@ -24,7 +23,7 @@ struct LayoutContext;
 
 class LayoutableShadowNode;
 using SharedLayoutableShadowNode = std::shared_ptr<const LayoutableShadowNode>;
-using SharedLayoutableShadowNodeList = std::vector<SharedLayoutableShadowNode>;
+using SharedLayoutableShadowNodeList = std::vector<const SharedLayoutableShadowNode>;
 using LayoutableShadowNodeIterator = std::iterator<std::input_iterator_tag, const SharedLayoutableShadowNode>;
 
 /*

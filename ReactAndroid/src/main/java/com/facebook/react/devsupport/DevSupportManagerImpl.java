@@ -60,7 +60,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -151,8 +150,6 @@ public class DevSupportManagerImpl implements
 
   private InspectorPackagerConnection.BundleStatus mBundleStatus;
 
-  private @Nullable Map<String, RequestHandler> mCustomPackagerCommandHandlers;
-
   private static class JscProfileTask extends AsyncTask<String, Void, Void> {
     private static final MediaType JSON =
       MediaType.parse("application/json; charset=utf-8");
@@ -199,8 +196,7 @@ public class DevSupportManagerImpl implements
       enableOnCreate,
       null,
       null,
-      minNumShakes,
-      null);
+      minNumShakes);
   }
 
   public DevSupportManagerImpl(
@@ -210,8 +206,7 @@ public class DevSupportManagerImpl implements
       boolean enableOnCreate,
       @Nullable RedBoxHandler redBoxHandler,
       @Nullable DevBundleDownloadListener devBundleDownloadListener,
-      int minNumShakes,
-      @Nullable Map<String, RequestHandler> customPackagerCommandHandlers) {
+      int minNumShakes) {
     mReactInstanceManagerHelper = reactInstanceManagerHelper;
     mApplicationContext = applicationContext;
     mJSAppBundleName = packagerPathForJSBundleName;
@@ -236,8 +231,6 @@ public class DevSupportManagerImpl implements
         showDevOptionsDialog();
       }
     }, minNumShakes);
-
-    mCustomPackagerCommandHandlers = customPackagerCommandHandlers;
 
     // Prepare reload APP broadcast receiver (will be registered/unregistered from #reload)
     mReloadAppBroadcastReceiver = new BroadcastReceiver() {
@@ -846,11 +839,6 @@ public class DevSupportManagerImpl implements
         handleCaptureHeap(responder);
       }
     });
-  }
-
-  @Override
-  public @Nullable Map<String, RequestHandler> customCommandHandlers() {
-    return mCustomPackagerCommandHandlers;
   }
 
   private void handleCaptureHeap(final Responder responder) {

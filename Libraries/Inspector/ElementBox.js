@@ -10,51 +10,38 @@
 
 'use strict';
 
-const BorderBox = require('BorderBox');
 const React = require('React');
-const StyleSheet = require('StyleSheet');
 const View = require('View');
+const StyleSheet = require('StyleSheet');
+const BorderBox = require('BorderBox');
+const resolveBoxStyle = require('resolveBoxStyle');
 
 const flattenStyle = require('flattenStyle');
-const resolveBoxStyle = require('resolveBoxStyle');
 
 class ElementBox extends React.Component<$FlowFixMeProps> {
   render() {
     const style = flattenStyle(this.props.style) || {};
     const margin = resolveBoxStyle('margin', style);
     const padding = resolveBoxStyle('padding', style);
-
-    const frameStyle = {...this.props.frame};
-    const contentStyle = {
+    let frameStyle = this.props.frame;
+    if (margin) {
+      frameStyle = {
+        top: frameStyle.top - margin.top,
+        left: frameStyle.left - margin.left,
+        height: frameStyle.height + margin.top + margin.bottom,
+        width: frameStyle.width + margin.left + margin.right,
+      };
+    }
+    let contentStyle = {
       width: this.props.frame.width,
       height: this.props.frame.height,
     };
-
-    if (margin != null) {
-      frameStyle.top -= margin.top;
-      frameStyle.left -= margin.left;
-      frameStyle.height += margin.top + margin.bottom;
-      frameStyle.width += margin.left + margin.right;
-
-      if (margin.top < 0) {
-        contentStyle.height += margin.top;
-      }
-      if (margin.bottom < 0) {
-        contentStyle.height += margin.bottom;
-      }
-      if (margin.left < 0) {
-        contentStyle.width += margin.left;
-      }
-      if (margin.right < 0) {
-        contentStyle.width += margin.right;
-      }
+    if (padding) {
+      contentStyle = {
+        width: contentStyle.width - padding.left - padding.right,
+        height: contentStyle.height - padding.top - padding.bottom,
+      };
     }
-
-    if (padding != null) {
-      contentStyle.width -= padding.left + padding.right;
-      contentStyle.height -= padding.top + padding.bottom;
-    }
-
     return (
       <View style={[styles.frame, frameStyle]} pointerEvents="none">
         <BorderBox box={margin} style={styles.margin}>
@@ -72,13 +59,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   content: {
-    backgroundColor: 'rgba(200, 230, 255, 0.8)', // blue
+    backgroundColor: 'rgba(200, 230, 255, 0.8)',
   },
   padding: {
-    borderColor: 'rgba(77, 255, 0, 0.3)', // green
+    borderColor: 'rgba(77, 255, 0, 0.3)',
   },
   margin: {
-    borderColor: 'rgba(255, 132, 0, 0.3)', // orange
+    borderColor: 'rgba(255, 132, 0, 0.3)',
   },
 });
 

@@ -8,7 +8,8 @@
 #include "RootProps.h"
 
 #include <fabric/view/conversions.h>
-#include <fabric/view/YogaLayoutableShadowNode.h>
+
+#include "YogaLayoutableShadowNode.h"
 
 namespace facebook {
 namespace react {

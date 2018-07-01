@@ -28,7 +28,7 @@ void ViewEventEmitter::onAccessibilityMagicTap() const {
 
 void ViewEventEmitter::onLayout(const LayoutMetrics &layoutMetrics) const {
   folly::dynamic payload = folly::dynamic::object();
-  const auto &frame = layoutMetrics.frame;
+  auto &&frame = layoutMetrics.frame;
   payload["layout"] = folly::dynamic::object
     ("x", frame.origin.x)
     ("y", frame.origin.y)
@@ -57,7 +57,7 @@ static folly::dynamic touchPayload(const Touch &touch) {
 
 static folly::dynamic touchesPayload(const Touches &touches) {
   folly::dynamic array = folly::dynamic::array();
-  for (const auto &touch : touches) {
+  for (auto &&touch : touches) {
     array.push_back(touchPayload(touch));
   }
   return array;

@@ -45,7 +45,7 @@ public:
   /*
    * Defines can the text be selected (and copied) or not.
    */
-  const bool isSelectable {};
+  const bool isSelectable {false};
 
 #pragma mark - DebugStringConvertible
 

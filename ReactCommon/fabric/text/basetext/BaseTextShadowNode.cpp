@@ -8,10 +8,11 @@
 #include "BaseTextShadowNode.h"
 
 #include <fabric/debug/DebugStringConvertibleItem.h>
-#include <fabric/text/RawTextShadowNode.h>
-#include <fabric/text/RawTextProps.h>
-#include <fabric/text/TextShadowNode.h>
-#include <fabric/text/TextProps.h>
+
+#include "RawTextShadowNode.h"
+#include "RawTextProps.h"
+#include "TextShadowNode.h"
+#include "TextProps.h"
 
 namespace facebook {
 namespace react {
@@ -24,7 +25,7 @@ AttributedString BaseTextShadowNode::getAttributedString(
 
   AttributedString attributedString;
 
-  for (const auto &childNode : *childNodes) {
+  for (auto &&childNode : *childNodes) {
     // RawShadowNode
     SharedRawTextShadowNode rawTextShadowNode = std::dynamic_pointer_cast<const RawTextShadowNode>(childNode);
     if (rawTextShadowNode) {

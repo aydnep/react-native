@@ -73,13 +73,11 @@ const Config = {
   DEFAULT: ({
     ...MetroConfig.DEFAULT,
     getBlacklistRE,
+    getProjectRoots,
+    getPolyfills,
     getModulesRunBeforeMainModule: () => [
       require.resolve('../../Libraries/Core/InitializeCore'),
     ],
-    getProjectRoots,
-    getPolyfills,
-    getWatchFolders: () => [getProjectPath()],
-    getResolverMainFields: () => ['react-native', 'browser', 'main'],
     getTransformModulePath: () =>
       require.resolve('metro/src/reactNativeTransformer'),
   }: ConfigT),

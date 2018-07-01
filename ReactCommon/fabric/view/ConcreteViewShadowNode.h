@@ -131,7 +131,7 @@ public:
       return false;
     }
 
-    const auto &other = static_cast<const ConcreteViewShadowNode&>(rhs);
+    auto &&other = static_cast<const ConcreteViewShadowNode&>(rhs);
     return getLayoutMetrics() == other.getLayoutMetrics();
   }
 

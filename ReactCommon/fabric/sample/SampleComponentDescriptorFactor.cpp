@@ -7,7 +7,6 @@
 
 #include <fabric/uimanager/ComponentDescriptorFactory.h>
 #include <fabric/uimanager/ComponentDescriptorRegistry.h>
-#include <fabric/uimanager/ContextContainer.h>
 
 namespace facebook {
 namespace react {
@@ -15,10 +14,7 @@ namespace react {
 /**
  * This is a sample implementation. Each app should provide its own.
  */
-SharedComponentDescriptorRegistry ComponentDescriptorFactory::buildRegistry(
-  const SharedEventDispatcher &eventDispatcher,
-  const SharedContextContainer &contextContainer
-) {
+SharedComponentDescriptorRegistry ComponentDescriptorFactory::buildRegistry(const SharedEventDispatcher &eventDispatcher) {
   auto registry = std::make_shared<ComponentDescriptorRegistry>();
   return registry;
 }

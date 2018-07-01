@@ -31,7 +31,7 @@ using SharedEventEmitter = std::shared_ptr<const EventEmitter>;
 class EventEmitter {
 
 public:
-  EventEmitter(const EventTarget &eventTarget, const Tag &tag, const SharedEventDispatcher &eventDispatcher);
+  EventEmitter(const InstanceHandle &instanceHandle, const Tag &tag, const SharedEventDispatcher &eventDispatcher);
   virtual ~EventEmitter();
 
 protected:
@@ -48,9 +48,14 @@ protected:
 
 private:
 
-  mutable EventTarget eventTarget_ {nullptr};
+  void createEventTargetIfNeeded() const;
+  void releaseEventTargetIfNeeded() const;
+
+  InstanceHandle instanceHandle_;
   Tag tag_;
   std::weak_ptr<const EventDispatcher> eventDispatcher_;
+  mutable EventTarget eventTarget_ {nullptr};
+  mutable std::mutex mutex_;
 };
 
 } // namespace react

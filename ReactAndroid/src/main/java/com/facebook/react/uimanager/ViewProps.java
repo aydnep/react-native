@@ -24,6 +24,7 @@ public class ViewProps {
   public static final String ALIGN_ITEMS = "alignItems";
   public static final String ALIGN_SELF = "alignSelf";
   public static final String ALIGN_CONTENT = "alignContent";
+  public static final String OVERFLOW = "overflow";
   public static final String DISPLAY = "display";
   public static final String BOTTOM = "bottom";
   public static final String COLLAPSABLE = "collapsable";
@@ -99,10 +100,6 @@ public class ViewProps {
   public static final String TEXT_DECORATION_LINE = "textDecorationLine";
   public static final String TEXT_BREAK_STRATEGY = "textBreakStrategy";
   public static final String OPACITY = "opacity";
-  public static final String OVERFLOW = "overflow";
-
-  public static final String HIDDEN = "hidden";
-  public static final String VISIBLE = "visible";
 
   public static final String ALLOW_FONT_SCALING = "allowFontScaling";
   public static final String INCLUDE_FONT_PADDING = "includeFontPadding";
@@ -169,6 +166,7 @@ public class ViewProps {
               FLEX_SHRINK,
               FLEX_WRAP,
               JUSTIFY_CONTENT,
+              OVERFLOW,
               ALIGN_CONTENT,
               DISPLAY,
 
@@ -256,8 +254,8 @@ public class ViewProps {
           return map.isNull(BORDER_RIGHT_WIDTH) || map.getDouble(BORDER_RIGHT_WIDTH) == 0d;
         case BORDER_BOTTOM_WIDTH:
           return map.isNull(BORDER_BOTTOM_WIDTH) || map.getDouble(BORDER_BOTTOM_WIDTH) == 0d;
-        case OVERFLOW:
-          return map.isNull(OVERFLOW) || VISIBLE.equals(map.getString(OVERFLOW));
+        case OVERFLOW: // We do nothing with this right now.
+          return true;
         default:
           return false;
       }

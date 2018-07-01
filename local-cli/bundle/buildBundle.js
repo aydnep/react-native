@@ -75,6 +75,7 @@ async function buildBundle(
       : defaultProvidesModuleNodeModules;
 
   const terminal = new Terminal(process.stdout);
+
   const server = new Server({
     asyncRequireModulePath: config.getAsyncRequireModulePath(),
     assetExts: defaultAssetExts.concat(assetExts),
@@ -87,7 +88,6 @@ async function buildBundle(
     extraNodeModules: config.extraNodeModules,
     getModulesRunBeforeMainModule: config.getModulesRunBeforeMainModule,
     getPolyfills: config.getPolyfills,
-    getResolverMainFields: config.getResolverMainFields,
     getRunModuleStatement: config.getRunModuleStatement,
     getTransformOptions: config.getTransformOptions,
     hasteImplModulePath: config.hasteImplModulePath,
@@ -95,7 +95,7 @@ async function buildBundle(
     platforms: defaultPlatforms.concat(platforms),
     postMinifyProcess: config.postMinifyProcess,
     postProcessBundleSourcemap: config.postProcessBundleSourcemap,
-    projectRoot: config.getProjectRoot(),
+    projectRoots: config.getProjectRoots(),
     providesModuleNodeModules: providesModuleNodeModules,
     reporter: new TerminalReporter(terminal),
     resetCache: args.resetCache,
@@ -103,7 +103,6 @@ async function buildBundle(
     sourceExts: sourceExts.concat(defaultSourceExts),
     transformModulePath: transformModulePath,
     watch: false,
-    watchFolders: config.getWatchFolders(),
     workerPath: config.getWorkerPath && config.getWorkerPath(),
   });
 

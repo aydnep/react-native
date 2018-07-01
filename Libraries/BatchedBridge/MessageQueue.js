@@ -37,6 +37,9 @@ const TRACE_TAG_REACT_APPS = 1 << 17;
 
 const DEBUG_INFO_LIMIT = 32;
 
+// Work around an initialization order issue
+let JSTimers = null;
+
 class MessageQueue {
   _lazyCallableModules: {[key: string]: (void) => Object};
   _queue: [number[], number[], any[], number];
@@ -45,7 +48,6 @@ class MessageQueue {
   _callID: number;
   _lastFlush: number;
   _eventLoopStartTime: number;
-  _immediatesCallback: ?() => void;
 
   _debugInfo: {[number]: [number, number]};
   _remoteModuleTable: {[number]: string};
@@ -61,7 +63,6 @@ class MessageQueue {
     this._callID = 0;
     this._lastFlush = 0;
     this._eventLoopStartTime = new Date().getTime();
-    this._immediatesCallback = null;
 
     if (__DEV__) {
       this._debugInfo = {};
@@ -278,13 +279,6 @@ class MessageQueue {
     }
   }
 
-  // For JSTimers to register its callback. Otherwise a circular dependency
-  // between modules is introduced. Note that only one callback may be
-  // registered at a time.
-  setImmediatesCallback(fn: () => void) {
-    this._immediatesCallback = fn;
-  }
-
   /**
    * Private methods
    */
@@ -316,9 +310,10 @@ class MessageQueue {
 
   __callImmediates() {
     Systrace.beginEvent('JSTimers.callImmediates()');
-    if (this._immediatesCallback != null) {
-      this._immediatesCallback();
+    if (!JSTimers) {
+      JSTimers = require('JSTimers');
     }
+    JSTimers.callImmediates();
     Systrace.endEvent();
   }
 

@@ -14,16 +14,11 @@ public interface FabricBinding {
 
   void installFabric(JavaScriptContextHolder jsContext, FabricUIManager fabricModule);
 
+  long createEventTarget(long jsContextNativePointer, long instanceHandlePointer);
+
   void releaseEventTarget(long jsContextNativePointer, long eventTargetPointer);
 
   void releaseEventHandler(long jsContextNativePointer, long eventHandlerPointer);
-
-  void dispatchEventToEmptyTarget(
-    long jsContextNativePointer,
-    long eventHandlerPointer,
-    String type,
-    NativeMap payload
-  );
 
   void dispatchEventToTarget(
     long jsContextNativePointer,

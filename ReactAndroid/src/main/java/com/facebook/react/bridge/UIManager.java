@@ -5,7 +5,7 @@ import com.facebook.react.uimanager.common.SizeMonitoringFrameLayout;
 
 import javax.annotation.Nullable;
 
-public interface UIManager extends JSIModule, PerformanceCounter {
+public interface UIManager extends JSIModule {
 
   /**
    * Registers a new root view.
@@ -27,9 +27,4 @@ public interface UIManager extends JSIModule, PerformanceCounter {
    * @param commandArgs {@link ReadableArray} parameters associated with the command
    */
   void dispatchCommand(int reactTag, int commandId, @Nullable ReadableArray commandArgs);
-
-  void setJSResponder(int reactTag, boolean blockNativeResponder);
-
-  void clearJSResponder();
-
 }

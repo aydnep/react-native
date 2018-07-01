@@ -37,7 +37,6 @@ import com.facebook.react.uimanager.ReactZIndexedViewGroup;
 import com.facebook.react.uimanager.RootView;
 import com.facebook.react.uimanager.RootViewUtil;
 import com.facebook.react.uimanager.ViewGroupDrawingOrderHelper;
-import com.facebook.react.uimanager.ViewProps;
 import com.facebook.yoga.YogaConstants;
 import javax.annotation.Nullable;
 
@@ -113,7 +112,6 @@ public class ReactViewGroup extends ViewGroup implements
 
   public ReactViewGroup(Context context) {
     super(context);
-    setClipChildren(false);
     mDrawingOrderHelper = new ViewGroupDrawingOrderHelper(this);
   }
 
@@ -684,20 +682,18 @@ public class ReactViewGroup extends ViewGroup implements
   private void dispatchOverflowDraw(Canvas canvas) {
     if (mOverflow != null) {
       switch (mOverflow) {
-        case ViewProps.VISIBLE:
+        case "visible":
           if (mPath != null) {
             mPath.rewind();
           }
           break;
-        case ViewProps.HIDDEN:
-          float left = 0f;
-          float top = 0f;
-          float right = getWidth();
-          float bottom = getHeight();
-
-          boolean hasClipPath = false;
-
+        case "hidden":
           if (mReactBackgroundDrawable != null) {
+            float left = 0f;
+            float top = 0f;
+            float right = getWidth();
+            float bottom = getHeight();
+
             final RectF borderWidth = mReactBackgroundDrawable.getDirectionAwareBorderInsets();
 
             if (borderWidth.top > 0
@@ -820,12 +816,9 @@ public class ReactViewGroup extends ViewGroup implements
                 },
                 Path.Direction.CW);
               canvas.clipPath(mPath);
-              hasClipPath = true;
+            } else {
+              canvas.clipRect(new RectF(left, top, right, bottom));
             }
-          }
-
-          if (!hasClipPath) {
-            canvas.clipRect(new RectF(left, top, right, bottom));
           }
           break;
         default:

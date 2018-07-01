@@ -123,38 +123,6 @@ struct EdgeInsets {
   bool operator !=(const EdgeInsets& rhs) const {
     return !(*this == rhs);
   }
-
-  bool isUniform() const {
-    return left == top &&
-      left == right &&
-      left == bottom;
-  }
-};
-
-/*
- * CornerInsets
- */
-struct CornerInsets {
-  Float topLeft {0};
-  Float topRight {0};
-  Float bottomLeft {0};
-  Float bottomRight {0};
-
-  bool operator ==(const CornerInsets& rhs) const {
-    return
-    std::tie(this->topLeft, this->topRight, this->bottomLeft, this->bottomRight) ==
-    std::tie(rhs.topLeft, rhs.topRight, rhs.bottomLeft, rhs.bottomRight);
-  }
-
-  bool operator !=(const CornerInsets& rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool isUniform() const {
-    return topLeft == topRight &&
-      topLeft == bottomLeft &&
-      topLeft == bottomRight;
-  }
 };
 
 } // namespace react
